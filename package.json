@@ -1,7 +1,14 @@
 {
   "name": "tradie-plugin-livereload",
   "main": "./dist/index.js",
-  "version": "0.1.0",
+  "version": "0.1.1",
+  "description": "A live-reload plugin for tradie.",
+  "keywords": [
+    "tradie",
+    "tradie-plugin",
+    "livereload",
+    "live-reload"
+  ],
   "dependencies": {
     "axios": "^0.9.1",
     "debug": "^2.2.0",
