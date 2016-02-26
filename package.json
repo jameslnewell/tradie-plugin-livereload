@@ -1,6 +1,7 @@
 {
   "name": "tradie-plugin-livereload",
   "main": "./dist/index.js",
+  "version": "0.1.0",
   "dependencies": {
     "axios": "^0.9.1",
     "debug": "^2.2.0",
