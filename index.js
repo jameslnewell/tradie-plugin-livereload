@@ -11,18 +11,17 @@ const port = process.env.LIVERELOAD_PORT || '35729';
  * @returns {Promise}
  */
 function reload(files) {
-  dbg(`notifying live-reload server at http://localhost:${port}`);
-  return axios.post(`http://localhost:${port}`, {files})
+  return axios.post(`http://localhost:${port}/changed`, {files})
     .then(
-      response => console.log(response),
-      response => console.error(response)
+      response => dbg(`live-reload successful for ${files}`),
+      response => dbg(`live-reload failed for ${files}`)
     )
   ;
 }
 
 /**
  * A plugin that adds live-reloading to Tradie
- * @param {Tradie} tradie
+ * @param {tradie} tradie
  * @param {object} config
  */
 export default function(tradie, config) {
@@ -39,24 +38,29 @@ export default function(tradie, config) {
       case 'bundle-scripts':
       case 'bundle-styles':
 
-        const server = tinylr()
-          .listen(port, () => dbg(`starting live-reload server at http://localhost:${port}`))
-        ;
-
-        //TODO: plugin to add live reload code to HTML? not necessary with browser plugins?
+        const server = tinylr({
+          errorListener: error => tradie.emit('error', error)
+        });
+        server.listen(port, () => dbg(`starting live-reload server at http://localhost:${port}`));
 
         tradie
-          .on('scripts.bundle.finished', files => {
-            dbg(`files changed: [${files.join(', ')}]`);
-            reload(files)
+          .on('scripts.bundle.finished', result => {
+            dbg(`files changed: [${result.dest}]`);
+            reload([result.dest])
           })
-          .on('styles.bundle.finished', files => {
-            dbg(`files changed: [${files.join(', ')}]`);
-            reload(files)
+          .on('styles.bundle.finished', result => {
+            dbg(`files changed: [${result.dest}]`);
+            reload([result.dest])
           })
           .once('command.finished', () => {
             dbg(`stopping live-reload server at http://localhost:${port}`);
-            server.close()
+
+            try {
+              server.close();
+            } catch (error) {
+              tradie.emit('error', error)
+            }
+
           })
         ;
 
