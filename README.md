@@ -6,7 +6,7 @@ A live-reload plugin for tradie.
 
     npm --save-dev tradie-plugin-livereload
 
-You'll also need to install one of [these browser extensions](http://livereload.com/extensions/).
+You'll also need to have one of [these browser extensions](http://livereload.com/extensions/) installed.
 
 ## Usage
 
