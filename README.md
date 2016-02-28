@@ -6,6 +6,8 @@ A live-reload plugin for tradie.
 
     npm --save-dev tradie-plugin-livereload
 
+Install one of [these browser extensions](http://livereload.com/extensions/).
+
 ## Usage
 
 `.tradierc`
