@@ -6,11 +6,11 @@ A live-reload plugin for tradie.
 
     npm --save-dev tradie-plugin-livereload
 
-You'll also need to have one of [these browser extensions](http://livereload.com/extensions/) installed.
+You'll also need to install one of [these browser extensions](http://livereload.com/extensions/), or add the [livereload snippet](http://feedback.livereload.com/knowledgebase/articles/86180-how-do-i-add-the-script-tag-manually) to your HTML.
 
 ## Usage
 
-`.tradierc`
+Configure `.tradierc`:
 
 ```json
 {
@@ -18,3 +18,8 @@ You'll also need to have one of [these browser extensions](http://livereload.com
 }
 ```
 
+Run `tradie build --watch`
+
+## Troubleshooting
+
+Note, the `livereload` browser extensions have limitations with `file://` URLs.
