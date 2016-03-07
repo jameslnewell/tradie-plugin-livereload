@@ -9,6 +9,10 @@
     "livereload",
     "live-reload"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:jameslnewell/tradie-plugin-livereload.git"
+  },
   "dependencies": {
     "axios": "^0.9.1",
     "debug": "^2.2.0",
