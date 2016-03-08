@@ -23,6 +23,7 @@
     "babel-preset-es2015": "^6.5.0"
   },
   "scripts": {
-    "build": "babel index.js -d ./dist"
+    "build": "babel index.js -d ./dist",
+    "prepublish": "npm run build"
   }
 }
