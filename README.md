@@ -1,6 +1,6 @@
 # tradie-plugin-livereload
 
-A livereload plugin for `tradie`.
+A `tradie` plugin for livereloading while building+watching.
 
 ## Installation
 
