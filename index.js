@@ -43,7 +43,7 @@ export default (options = {}) => tradie => {
     });
     server.listen(
       port,
-      () => dbg(`starting live-reload server at http://localhost:${port}`)
+      () => dbg(`Started livereload server at http://localhost:${port}`)
     );
 
     tradie
@@ -56,10 +56,10 @@ export default (options = {}) => tradie => {
         reload([result.dest])
       })
       .once('command.finished', () => {
-        dbg(`stopping live-reload server at http://localhost:${port}`);
 
         try {
           server.close();
+          dbg(`Stopped livereload server at http://localhost:${port}`);
         } catch (error) {
           tradie.emit('error', error)
         }

@@ -1,7 +1,7 @@
 {
   "name": "tradie-plugin-livereload",
   "main": "./dist/index.js",
-  "version": "1.0.0-preview.1",
+  "version": "1.0.0-preview.2",
   "description": "A live-reload plugin for tradie.",
   "keywords": [
     "tradie",
