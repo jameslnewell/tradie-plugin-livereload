@@ -1,6 +1,6 @@
 # tradie-plugin-livereload
 
-A live-reload plugin for tradie.
+A livereload plugin for `tradie`.
 
 ## Installation
 
@@ -10,12 +10,14 @@ You'll also need to install one of [these browser extensions](http://livereload.
 
 ## Usage
 
-Configure `.tradierc`:
+Configure `tradie.config.js`:
 
-```json
-{
-  "plugins": ["livereload"]
-}
+```js
+var livereload = require('tradie-plugin-livereload');
+
+module.exports = {
+  plugins: [livereload()]
+};
 ```
 
 Run `tradie build --watch`
