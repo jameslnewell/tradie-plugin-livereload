@@ -13,7 +13,7 @@ You'll also need to install one of [these browser extensions](http://livereload.
 Configure `tradie.config.js`:
 
 ```js
-var livereload = require('tradie-plugin-livereload');
+var livereload = require('tradie-plugin-livereload').default;
 
 module.exports = {
   plugins: [livereload()]
