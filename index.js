@@ -26,49 +26,43 @@ export default (options = {}) => tradie => {
       ;
   };
 
-  const init = cmd => {
+  //only run livereload while we're watching
+  if (!tradie.watch) {
+    return;
+  }
 
-    //only run livereload while we're watching
-    if (!cmd.args.watch) {
-      return;
-    }
+  //only run livereload while we're building
+  if (tradie.command !== 'build') {
+    return;
+  }
 
-    //only run livereload while we're building
-    if (cmd.name !== 'build') {
-      return;
-    }
+  const server = tinylr({
+    errorListener: error => tradie.emit('error', error)
+  });
+  server.listen(
+    port,
+    () => dbg(`Started livereload server at http://localhost:${port}`)
+  );
 
-    const server = tinylr({
-      errorListener: error => tradie.emit('error', error)
-    });
-    server.listen(
-      port,
-      () => dbg(`Started livereload server at http://localhost:${port}`)
-    );
+  tradie
+    .on('scripts.bundle.finished', result => {
+      dbg(`file changed "${path.relative(tradie.dest, result.dest)}"`);
+      reload([result.dest])
+    })
+    .on('styles.bundle.finished', result => {
+      dbg(`file changed "${path.relative(tradie.dest, result.dest)}"`);
+      reload([result.dest])
+    })
+    .once('exit', () => {
+console.log('exit');
+      try {
+        server.close();
+        dbg(`Stopped livereload server at http://localhost:${port}`);
+      } catch (error) {
+        tradie.emit('error', error)
+      }
 
-    tradie
-      .on('scripts.bundle.finished', result => {
-        dbg(`file changed "${path.relative(tradie.config.dest, result.dest)}"`);
-        reload([result.dest])
-      })
-      .on('styles.bundle.finished', result => {
-        dbg(`file changed "${path.relative(tradie.config.dest, result.dest)}"`);
-        reload([result.dest])
-      })
-      .once('command.finished', () => {
-
-        try {
-          server.close();
-          dbg(`Stopped livereload server at http://localhost:${port}`);
-        } catch (error) {
-          tradie.emit('error', error)
-        }
-
-      })
-    ;
-
-  };
-
-  tradie.once('command.started', init);
+    })
+  ;
 
 };
