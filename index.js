@@ -54,7 +54,7 @@ export default (options = {}) => tradie => {
       reload([result.dest])
     })
     .once('exit', () => {
-console.log('exit');
+      
       try {
         server.close();
         dbg(`Stopped livereload server at http://localhost:${port}`);
